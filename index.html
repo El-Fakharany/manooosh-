@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عالم حب منوووشتي الأبدي ❤️ منة & محمد</title>
+  
+  <!-- Favicon Heart -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+
+  <!-- Google Fonts: Cairo, Amiri, Marhey, Reem Kufi, Alexandria -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;700;800;900&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@300;400;600;700;900&family=Marhey:wght@400;600;700&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Pro Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Three.js CDN & OrbitControls -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       CINEMATIC INTRO GATEWAY (UNBOXING EXPERIENCE)
+       ========================================================================== -->
+  <div class="intro-overlay" id="intro-overlay">
+    <div class="intro-stars-backdrop"></div>
+    <div class="intro-card glass-panel-popup animate-popup">
+      <div class="intro-wax-seal fa-beat" id="intro-seal">
+        <i class="fa-solid fa-heart"></i>
+      </div>
+      <span class="intro-sub-tag">رسالة خاصة وسرية جداً 💌</span>
+      <h1 class="intro-heading">مملكة حب منوووشتي</h1>
+      <p class="intro-desc">
+        يا <span class="highlight-gold">منة</span>.. الموقع ده اتصمم بكل نبضة في قلبي مخصوص عشانك.<br>
+        مكان سري محفوظ في النجوم بيحكي قد إيه أنا بموت فيكي وبعشقك!
+      </p>
+      <div class="intro-days-badge">
+        <i class="fa-solid fa-fire fa-beat" style="color: #ff1e56;"></i>
+        <span id="gate-days-text">بقالنا 13 يوم بس بنتكلم.. وحاسس إنك نصفي التاني من سنين!</span>
+      </div>
+      <div class="intro-dates-pill">
+        <span>محمد 03/03/2009</span>
+        <i class="fa-solid fa-infinity"></i>
+        <span>منوش 21/05/2011</span>
+      </div>
+      <button class="btn btn-intro-enter" id="intro-enter-btn">
+        <i class="fa-solid fa-key"></i>
+        <span>افتحي بوابتنا السحرية يا حبيبتي 🗝️✨</span>
+      </button>
+      <span class="intro-hint">اضغطي هنا لتشغيل الموسيقى وعالم الـ 3D الساحر</span>
+    </div>
+  </div>
+
+
+  <!-- 3D WebGL Canvas Fixed in Background -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Glowing Cursor & Particle Trail Aura -->
+  <div class="custom-cursor-glow" id="cursor-glow"></div>
+
+  <!-- Romantic Song Audio Bar (Top Glass Header) -->
+  <header class="top-nav-bar">
+    <div class="brand-love">
+      <span class="heart-pulse-mini">❤️</span>
+      <span class="brand-text">منوووش & محمد</span>
+      <span class="brand-badge">عشق أبدي ♾️</span>
+    </div>
+
+    <!-- 3D Heart Style Switcher -->
+    <div class="scene-mode-selector">
+      <button class="mode-btn active" data-mode="crystal" title="قلب كريستال ألماسي">💎 كريستال</button>
+      <button class="mode-btn" data-mode="galaxy" title="قلب مجري وردي">🌌 مجري</button>
+      <button class="mode-btn" data-mode="gold" title="قلب ملكي ذهبي">👑 ذهبي</button>
+    </div>
+
+    <div class="audio-player-panel" id="audio-panel">
+      <button class="music-toggle-btn" id="music-toggle-btn" title="تشغيل / إيقاف أغنية باسم منّة (منوشتي)">
+        <i class="fa-solid fa-play music-icon" id="music-icon"></i>
+        <span class="music-label" id="music-status-text">أغنية باسم منوشتي 🎵💜</span>
+      </button>
+      <div class="music-waves" id="music-waves">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Real Romantic Song Audio Element Dedicated to Menna -->
+  <audio id="bg-music" src="menna_song.webm" loop preload="auto"></audio>
+
+  <!-- Floating Quick Interaction Panel (Bottom-Left) -->
+  <div class="floating-actions">
+    <button class="action-bubble-btn certificate-btn" id="open-cert-btn" title="وثيقة ملكية قلبي">
+      <i class="fa-solid fa-award fa-shake"></i>
+      <span>وثيقة ملكية قلبي 📜</span>
+    </button>
+    <button class="action-bubble-btn jar-btn" id="open-jar-btn" title="برطمان رسايل السعادة">
+      <i class="fa-solid fa-jar fa-bounce"></i>
+      <span>برطمان السعادة 🫙</span>
+    </button>
+    <button class="action-bubble-btn emergency-btn" id="emergency-love-btn" title="زر الطوارئ لما توحشيني">
+      <i class="fa-solid fa-shield-heart"></i>
+      <span>لو وحشتيني 💌</span>
+    </button>
+    <button class="action-bubble-btn" id="shower-roses-btn" title="مطري ورد بنفسجي وقلوب في الشاشة">
+      <i class="fa-solid fa-spa"></i>
+      <span>ورد بنفسجي 💜</span>
+    </button>
+  </div>
+
+
+  <!-- ==========================================================================
+       MAIN CONTENT CONTAINER
+       ========================================================================== -->
+  <main class="main-wrapper">
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="love-ticker animate-fade-down">
+        <span>✨ 03/03/2009 ♾️ 21/05/2011 ✨ قصة حب خُلقت في السماء لتكتمل على الأرض ✨</span>
+      </div>
+
+      <div class="hero-badge animate-fade">
+        <span class="sparkle-icon">👑</span> إلى أميرتي وعمري وسندي ونور عيني <span class="sparkle-icon">👑</span>
+      </div>
+
+      <!-- COUPLE PHOTO HERO PORTRAIT -->
+      <div class="couple-hero-container animate-fade">
+        <div class="couple-portrait-frame">
+          <div class="portrait-halo"></div>
+          <img src="couple.jpg" alt="محمد وحبيبته منوش" class="couple-hero-img">
+          <div class="portrait-badge">
+            <i class="fa-solid fa-heart fa-beat"></i>
+            <span>محمد & منوووشتي</span>
+          </div>
+        </div>
+      </div>
+
+      <h1 class="hero-title animate-glow">
+        إلى مالكة الروح والوجدان..<br>
+        <span class="glow-name">مَـنّـوشَـتـي</span>
+        <span class="heart-super-glow">❤️</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        يا <span class="highlight">مِـنّـة</span>.. لو كان للحب نهاية، مكنش حبك في قلبي اتجدد كل ثانية وكل دقة قلب.<br>
+        أنا مش بس بحبك.. أنا عايش بيكي وبموت فيكي يا كل ما أملك في الوجود!
+      </p>
+
+      <!-- 3D Heart Controller Hint -->
+      <div class="heart-hint-container">
+        <div class="heart-hint-badge" id="heart-click-target">
+          <i class="fa-solid fa-hand-pointer pulse-icon"></i>
+          <span>القلب 3D بينبض بحبي ليكي! اضغطي عليه لتسمعي نبض قلبي</span>
+        </div>
+      </div>
+
+      <!-- Hero Buttons -->
+      <div class="hero-cta-group">
+        <button class="btn btn-primary" id="open-surprise-btn">
+          <i class="fa-solid fa-gift fa-shake"></i>
+          <span>افتحي هديتك الملكية 🎁</span>
+        </button>
+        <button class="btn btn-secondary" id="open-love-letter-btn">
+          <i class="fa-solid fa-envelope-open-text"></i>
+          <span>اقرأي رسالة قلبي 💌</span>
+        </button>
+        <a href="#love-timeline" class="btn btn-glass">
+          <i class="fa-solid fa-timeline"></i>
+          <span>رحلة حكايتنا 🌹</span>
+        </a>
+      </div>
+
+      <div class="scroll-down-indicator">
+        <span>انزلي تحت واكتشفي مفاجآت عالم حبنا</span>
+        <i class="fa-solid fa-chevron-down bouncing"></i>
+      </div>
+    </section>
+
+
+    <!-- TYPEWRITER LIVE CONFESSION BOX -->
+    <section class="section" id="typewriter-section">
+      <div class="typewriter-box glass-panel">
+        <div class="typewriter-header">
+          <div class="typewriter-dots">
+            <span class="dot red-dot"></span>
+            <span class="dot yellow-dot"></span>
+            <span class="dot green-dot"></span>
+          </div>
+          <span class="typewriter-title"><i class="fa-solid fa-feather-pointed"></i> اعتراف مباشر يكتبه قلبي لـ منة الآن..</span>
+        </div>
+        <div class="typewriter-content">
+          <p id="typewriter-text" class="typewriter-text"></p>
+          <span class="typewriter-cursor">|</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- CELESTIAL DATES & STORY SECTION -->
+    <section class="section" id="celestial-dates">
+      <div class="section-header">
+        <span class="section-tag">تواريخ لا تتكرر في التاريخ</span>
+        <h2 class="section-title">كتبنا القدر بين النجوم</h2>
+        <p class="section-sub">تاريخين اتقابلوا عشان يصنعوا أجمل وأطهر قصة عشق في الكون</p>
+        <div class="section-divider">
+          <span>❤️</span>
+        </div>
+      </div>
+
+      <div class="dates-cards-container">
+        <!-- His Card -->
+        <div class="date-card glass-panel" data-tilt>
+          <div class="card-glow-halo cyan-halo"></div>
+          <div class="card-icon-halo">
+            <i class="fa-solid fa-user-astronaut"></i>
+          </div>
+          <div class="date-tag">تاريخ ميلادي أنا</div>
+          <div class="big-date">03 / 03 / 2009</div>
+          <h3 class="card-title">اليوم اللي جيت فيه الدنيا</h3>
+          <p class="card-desc">
+            اتولدت في اليوم ده.. بس الحقيقة إن عمري الحقيقي مابدأش غير لما شوفت عينيكي ولقيت فيكي طوق النجاة وسعادتي.
+          </p>
+          <div class="card-badge">نصفي التاني & سندك</div>
+        </div>
+
+        <!-- Connection Ring / Eternity Pulse -->
+        <div class="dates-connector">
+          <div class="connector-line"></div>
+          <div class="connector-heart" id="pulse-connector">
+            <i class="fa-solid fa-heart fa-beat"></i>
+            <div class="ripple-ring"></div>
+          </div>
+          <div class="connector-label">عشق أبدي ♾️</div>
+          <div class="connector-line"></div>
+        </div>
+
+        <!-- Her Card -->
+        <div class="date-card glass-panel queen-card" data-tilt>
+          <div class="card-glow-halo gold-halo"></div>
+          <div class="card-icon-halo queen-halo">
+            <i class="fa-solid fa-crown"></i>
+          </div>
+          <div class="date-tag queen-tag">تاريخ ميلاد أميرتي منوش</div>
+          <div class="big-date queen-date">21 / 05 / 2011</div>
+          <h3 class="card-title">يوم نزول أحلى ملاك على الأرض</h3>
+          <p class="card-desc">
+            21 مايو.. اليوم اللي ربنا خلق فيه أجمل وأرق وأطيب قلب، "منة".. مصدر ابتسامتي وأغلى كنز حلمت بيه واتحقق.
+          </p>
+          <div class="card-badge queen-badge">ملكة قلبي للأبد 👑</div>
+        </div>
+      </div>
+
+      <!-- Live Romance Counter Box (Dynamic Days of Talking) -->
+      <div class="love-counter-box glass-panel">
+        <div class="counter-header-group">
+          <i class="fa-solid fa-hourglass-half rotate-slow"></i>
+          <h4 class="counter-header">بقالنا <span class="dyn-days">13</span> يوم بنتكلم.. بس حاسس إني أعرفك وأحبك من ألف سنة! ❤️</h4>
+        </div>
+        
+        <div class="counter-grid" id="love-clock">
+          <div class="counter-item">
+            <span class="counter-number" id="clock-days">13</span>
+            <span class="counter-unit">يوم حب حقيقي</span>
+          </div>
+          <div class="counter-item">
+            <span class="counter-number" id="clock-hours">00</span>
+            <span class="counter-unit">ساعة عشق</span>
+          </div>
+          <div class="counter-item">
+            <span class="counter-number" id="clock-minutes">00</span>
+            <span class="counter-unit">دقيقة اشتياق</span>
+          </div>
+          <div class="counter-item">
+            <span class="counter-number" id="clock-seconds">00</span>
+            <span class="counter-unit">ثانية غرام</span>
+          </div>
+        </div>
+        <p class="counter-footer">في ناس بتحتاج سنين عشان تحب، وأنا في <strong class="dyn-days">13</strong> يوم بس لقيت فيكي روحي ودنيتي كلها يا <strong>منوشتي</strong> 🌸</p>
+      </div>
+    </section>
+
+
+    <!-- OUR LOVE STORY JOURNEY (5 MILESTONES) -->
+    <section class="section" id="love-timeline">
+      <div class="section-header">
+        <span class="section-tag">محطات لا تُنسى</span>
+        <h2 class="section-title">رحلة حكايتنا في 5 محطات أسطورية 🌹</h2>
+        <p class="section-sub">خطوات مشيناها سوا وهنفضل ماشيينها لحد آخر العمر</p>
+        <div class="section-divider"><span>💫</span></div>
+      </div>
+
+      <div class="timeline-container">
+        <!-- Milestone 1 -->
+        <div class="timeline-item glass-panel">
+          <div class="timeline-dot">1</div>
+          <div class="timeline-body">
+            <span class="timeline-tag">المحطة الأولى</span>
+            <h3 class="timeline-heading">يوم ما عيوني شافتك وبدأت حياتي ✨</h3>
+            <p class="timeline-text">
+              اللحظة اللي دخلتي فيها حياتي، حسيت إن العالم كله سكت ومفضلش غير صوت دقات قلبي وهي بتشاور عليكي وبتقول: هي دي اللي كنت مستنيها عمري كله!
+            </p>
+          </div>
+        </div>
+
+        <!-- Milestone 2 -->
+        <div class="timeline-item glass-panel">
+          <div class="timeline-dot">2</div>
+          <div class="timeline-body">
+            <span class="timeline-tag">المحطة الثانية</span>
+            <h3 class="timeline-heading">لما قلبي قالها بصوت عالي: بموت فيكي 💖</h3>
+            <p class="timeline-text">
+              اليوم اللي اعترفت فيه لنفسي وللدنيا كلها إن منة مش بس شخص عادي.. دي بقت روحي ونبضي، وكل حاجة حلوة بتنفسها في يومي.
+            </p>
+          </div>
+        </div>
+
+        <!-- Milestone 3 -->
+        <div class="timeline-item glass-panel">
+          <div class="timeline-dot">3</div>
+          <div class="timeline-body">
+            <span class="timeline-tag">المحطة الثالثة</span>
+            <h3 class="timeline-heading">ضحكتك اللي بتسوى الدنيا وما فيها 🌸</h3>
+            <p class="timeline-text">
+              كل مرة بتضحكي فيها أو بشوف عينيكي بتلمع من الفرحة، بحس إني ملكت كنوز الأرض كلها. ضحكتك دي هي السحر اللي بيمسح أي تعب في ثانية!
+            </p>
+          </div>
+        </div>
+
+        <!-- Milestone 4 -->
+        <div class="timeline-item glass-panel">
+          <div class="timeline-dot">4</div>
+          <div class="timeline-body">
+            <span class="timeline-tag">المحطة الرابعة</span>
+            <h3 class="timeline-heading">وعدي ليكي: أمانك وسندك وضهرك للأبد 🛡️</h3>
+            <p class="timeline-text">
+              عهد قطعته على نفسي أمام ربنا، هفضل واقف جنبك وفي ضهرك في كل لحظة، ومستحيل أسمح لحاجة في الدنيا تكسر خاطرك أو تضايقك أبداً.
+            </p>
+          </div>
+        </div>
+
+        <!-- Milestone 5 -->
+        <div class="timeline-item glass-panel featured-timeline">
+          <div class="timeline-dot gold-dot">5</div>
+          <div class="timeline-body">
+            <span class="timeline-tag gold-tag">المحطة الخامسة</span>
+            <h3 class="timeline-heading">مستقبلنا واليوم اللي هنكون فيه سوا في بيتنا 💍👰</h3>
+            <p class="timeline-text">
+              اليوم اللي هلبسك فيه الدبلة بإيديا ونقفل علينا باب بيتنا الصغير، ونعيش سوا أجمل حياة حلمنا بيها.. ده الحلم اللي بصحى وأنام عليه كل يوم!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- INTERACTIVE LOVE COMPATIBILITY CALCULATOR -->
+    <section class="section" id="love-meter-section">
+      <div class="section-header">
+        <span class="section-tag">مقياس الغرام الكوني</span>
+        <h2 class="section-title">مقياس عشق محمد لـ منوش ❤️</h2>
+        <p class="section-sub">اضغطي وشوفي نسبة حبي ليكي على مقاييس الكون</p>
+        <div class="section-divider"><span>🔮</span></div>
+      </div>
+
+      <div class="love-meter-box glass-panel">
+        <div class="lovers-avatars">
+          <div class="lover-avatar">
+            <div class="avatar-ring male-ring"><i class="fa-solid fa-user"></i></div>
+            <span class="lover-name">محمد</span>
+            <span class="lover-dob">03/03/2009</span>
+          </div>
+          <div class="meter-heart-center" id="meter-pulse-icon">
+            <i class="fa-solid fa-heart fa-beat"></i>
+          </div>
+          <div class="lover-avatar">
+            <div class="avatar-ring female-ring"><i class="fa-solid fa-heart"></i></div>
+            <span class="lover-name">منوش (منة)</span>
+            <span class="lover-dob">21/05/2011</span>
+          </div>
+        </div>
+
+        <div class="meter-bar-container">
+          <div class="meter-bar-fill" id="meter-fill"></div>
+        </div>
+        <div class="meter-percentage" id="meter-percentage">0%</div>
+
+        <div class="meter-result-box" id="meter-result-box">
+          <p id="meter-result-text">اضغطي على الزر بالأسفل لقياس نسبة الحب الأبدي!</p>
+        </div>
+
+        <button class="btn btn-glow-magic" id="calculate-love-btn">
+          <i class="fa-solid fa-heart-circle-bolt"></i>
+          <span>احسبي نسبة عشقنا الآن ✨</span>
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ROMANTIC POLAROID MEMORY WALL (FLIPPABLE CARDS) -->
+    <section class="section" id="polaroid-gallery">
+      <div class="section-header">
+        <span class="section-tag">ذكريات محفورة في القلب</span>
+        <h2 class="section-title">معرض صور قلبي لـ منوشتي 📸</h2>
+        <p class="section-sub">اضغطي على أي كارت عشان يتقلب وتشوفي الكلام السري اللي في ضهره!</p>
+        <div class="section-divider"><span>✨</span></div>
+      </div>
+
+      <div class="polaroid-grid">
+        <!-- Card 1 (REAL COUPLE PHOTO) -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front glass-panel">
+              <div class="polaroid-tape"></div>
+              <div class="polaroid-photo-frame">
+                <img src="couple.jpg" alt="محمد & منوش" class="polaroid-real-img">
+                <div class="photo-overlay-tag">أنتي وأنا ❤️</div>
+              </div>
+              <h4 class="polaroid-caption">أحلى صورة تجمعنا في الكون 💖</h4>
+              <span class="flip-hint"><i class="fa-solid fa-rotate"></i> اقلبي الكارت</span>
+            </div>
+            <div class="polaroid-back glass-panel">
+              <h4 class="back-title">سر الصورة دي 💌</h4>
+              <p class="back-text">
+                "كل ما ببص في صورتنا سوا بحس إني أسعد إنسان في الوجود.. عينيكي الحلوين دول هما دنيتي، ووجودك جنبي في الصورة دي بيسوى عندي كنوز العالم كلها يا منوشتي!"
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front glass-panel">
+              <div class="polaroid-tape"></div>
+              <div class="polaroid-img-placeholder gold-glow">
+                <i class="fa-solid fa-crown"></i>
+                <span>أميرة الضحكة</span>
+              </div>
+              <h4 class="polaroid-caption">ضحكتك دي كنز الدنيا 👑</h4>
+              <span class="flip-hint"><i class="fa-solid fa-rotate"></i> اقلبي الكارت</span>
+            </div>
+            <div class="polaroid-back glass-panel">
+              <h4 class="back-title">ليه ضحكتك بالذات؟ ✨</h4>
+              <p class="back-text">
+                "عشان بتطلع من قلب صافي مفيش فيه غل ولا كبرياء.. ضحكتك دي هي الطاقة اللي بتخليني أكمل وأحس إن كل حاجة في الدنيا بخير."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front glass-panel">
+              <div class="polaroid-tape"></div>
+              <div class="polaroid-img-placeholder pink-glow">
+                <i class="fa-solid fa-infinity"></i>
+                <span>عشق 21 مايو</span>
+              </div>
+              <h4 class="polaroid-caption">21/05/2011 تاريخ العيد 🎂</h4>
+              <span class="flip-hint"><i class="fa-solid fa-rotate"></i> اقلبي الكارت</span>
+            </div>
+            <div class="polaroid-back glass-panel">
+              <h4 class="back-title">أعظم عيد في عمري 🌸</h4>
+              <p class="back-text">
+                "اليوم اللي اتولدت فيه روحي وسعادتي.. كل سنة وأنتي منوشتي وحبيبتي وأغلى هدية ربنا بعتهالي من السما."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 3D INTERACTIVE LOVE LETTERS VAULT -->
+    <section class="section" id="love-letters-section">
+      <div class="section-header">
+        <span class="section-tag">من أعماق القلب والوجدان</span>
+        <h2 class="section-title">صندوق رسائل الحب السرية لـ منة 💌</h2>
+        <p class="section-sub">جوابات مكتوبة بحبر من روحي.. اضغطي على أي جواب عشان تقرأيه كاملاً</p>
+        <div class="section-divider">
+          <span>💌</span>
+        </div>
+      </div>
+
+      <div class="letters-grid">
+
+        <!-- Letter 1 -->
+        <div class="letter-card glass-panel" onclick="openLetter(1)">
+          <div class="wax-seal">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <span class="letter-number">الرسالة الأولى</span>
+          <h3 class="letter-card-title">إلى من علمتني معنى الحياة</h3>
+          <p class="letter-card-snippet">
+            عارفة يا منة؟ قبل ما تدخلي حياتي كنت حاسس إن في حاجة ناقصاني، لحد ما شوفتك وعرفت إنك إنتي الحتة اللي كانت ضايعة مني..
+          </p>
+          <div class="open-letter-prompt">
+            <span>افتحي الرسالة</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+        </div>
+
+        <!-- Letter 2 -->
+        <div class="letter-card glass-panel featured-letter" onclick="openLetter(2)">
+          <div class="wax-seal gold-seal">
+            <i class="fa-solid fa-crown"></i>
+          </div>
+          <span class="letter-number">الرسالة الثانية</span>
+          <h3 class="letter-card-title">ليه إنتي يا منوووش بالذات؟</h3>
+          <p class="letter-card-snippet">
+            سألت نفسي كتير، ليه حبك مسيطر على كل تفكيري وكل نفس بتنفسه؟ لقيت إن ضحكتك لوحدها قادرة تنسيني هموم الدنيا كلها..
+          </p>
+          <div class="open-letter-prompt">
+            <span>افتحي الرسالة</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+        </div>
+
+        <!-- Letter 3 -->
+        <div class="letter-card glass-panel" onclick="openLetter(3)">
+          <div class="wax-seal">
+            <i class="fa-solid fa-ring"></i>
+          </div>
+          <span class="letter-number">الرسالة الثالثة</span>
+          <h3 class="letter-card-title">وعدي ليكي أمام ربنا والكون</h3>
+          <p class="letter-card-snippet">
+            بوعدك أكون ليكي السند والضهر، بوعدك عيني متشوفش غيرك ولا قلبي يدق لحد تاني أبداً، هفضل ماسك في إيدك لآخر نفس..
+          </p>
+          <div class="open-letter-prompt">
+            <span>افتحي الرسالة</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+        </div>
+
+        <!-- Letter 4 -->
+        <div class="letter-card glass-panel" onclick="openLetter(4)">
+          <div class="wax-seal">
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <span class="letter-number">الرسالة الرابعة</span>
+          <h3 class="letter-card-title">يا أجمل 21 مايو في التاريخ</h3>
+          <p class="letter-card-snippet">
+            اليوم ده عندي هو عيد الدنيا كلها. 21/5/2011 مش مجرد تاريخ، ده تاريخ ميلاد سعادتي وفرحتي الأبدية يا أغلى منة في الوجود..
+          </p>
+          <div class="open-letter-prompt">
+            <span>افتحي الرسالة</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+        </div>
+
+        <!-- Letter 5 -->
+        <div class="letter-card glass-panel" onclick="openLetter(5)">
+          <div class="wax-seal pink-seal">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+          </div>
+          <span class="letter-number">الرسالة الخامسة</span>
+          <h3 class="letter-card-title">لما بفتكر عيونك وضحكتك</h3>
+          <p class="letter-card-snippet">
+            ضحكتك يا منوش عندي زي النور اللي بيكسر أي عتمة، كل تفصيلة فيكي معمولة بدقة عشان تخليني متيم بيكي..
+          </p>
+          <div class="open-letter-prompt">
+            <span>افتحي الرسالة</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+        </div>
+
+        <!-- Letter 6 -->
+        <div class="letter-card glass-panel" onclick="openLetter(6)">
+          <div class="wax-seal violet-seal">
+            <i class="fa-solid fa-infinity"></i>
+          </div>
+          <span class="letter-number">الرسالة السادسة</span>
+          <h3 class="letter-card-title">حكايتنا اللي هتفضل للأبد</h3>
+          <p class="letter-card-snippet">
+            حتى لما نكبر في السن وتعدي السنين، هفضل ماسك إيدك وببصلك بنفس نظرة الإعجاب والانبهار وكأنها أول يوم..
+          </p>
+          <div class="open-letter-prompt">
+            <span>افتحي الرسالة</span>
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- REASONS WHY I DIE FOR YOU (INTERACTIVE MACHINE) -->
+    <section class="section" id="reasons-generator">
+      <div class="section-header">
+        <span class="section-tag">أسرار غرامي وعشقي</span>
+        <h2 class="section-title">ليه بموت فيكي يا منوش؟ 💖</h2>
+        <p class="section-sub">عندي أكتر من 50 سبب يخليني أعشق التراب اللي بتمشي عليه.. اضغطي وشوفي سبب جديد!</p>
+        <div class="section-divider">
+          <span>✨</span>
+        </div>
+      </div>
+
+      <div class="reason-interactive-box glass-panel">
+        <div class="floating-hearts-orbit">
+          <span class="orbit-heart h1">💖</span>
+          <span class="orbit-heart h2">🌸</span>
+          <span class="orbit-heart h3">✨</span>
+          <span class="orbit-heart h4">🌹</span>
+        </div>
+
+        <div class="reason-display" id="reason-display">
+          <i class="fa-solid fa-quote-right quote-mark"></i>
+          <p class="reason-text" id="reason-text">
+            "بحبك عشان لما بضحك بضحك من قلبي معاكي، ولما بضايق صوتك وضحكتك هما الشفا الوحيد لكل وجع فيا يا منوشتي."
+          </p>
+          <span class="reason-counter-pill" id="reason-counter-pill">السبب #1</span>
+        </div>
+
+        <div class="reason-actions">
+          <button class="btn btn-glow-magic" id="next-reason-btn">
+            <i class="fa-solid fa-dice"></i>
+            <span>اضغطي وقوليلي سبب تاني عشان بموت فيكي</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ROMANTIC POETRY & EXPRESSIONS -->
+    <section class="section" id="poetry-section">
+      <div class="section-header">
+        <span class="section-tag">كلمات غزل خاصة ومكتوبة لعيونك</span>
+        <h2 class="section-title">شعر من قلبي لـ عيون منوووشتي</h2>
+        <div class="section-divider">
+          <span>🌹</span>
+        </div>
+      </div>
+
+      <div class="poetry-cards-grid">
+        <div class="poetry-card glass-panel">
+          <div class="poem-glow-heart">❤️</div>
+          <p class="poem-verse">
+            يا منةُ فيكِ حُسْنُ الكونِ يُختَصَرُ<br>
+            وكأنكِ في ظلامِ الليالي بَدْرٌ ويُنْتَظَرُ<br>
+            مَن قالَ إني في هواكِ قدْ مِتُّ؟<br>
+            بلْ عِشتُ فيكِ حِينَ كادَ يَموتُ الأثَرُ!
+          </p>
+          <div class="poem-author">لأميرتي منوش</div>
+        </div>
+
+        <div class="poetry-card glass-panel highlight-poem">
+          <div class="poem-glow-heart">👑</div>
+          <p class="poem-verse">
+            ضحكتك ديا تسوى عندي الكون بما فيه،<br>
+            ورمش عينك لما بيبصلي بدوب في معانيه،<br>
+            أنا 3/3 وأنتي 21/5..<br>
+            ومفيش رقم ولا تاريخ يوصف غرام قلبي ليكِ وتحديه!
+          </p>
+          <div class="poem-author">عاشق منة للأبد</div>
+        </div>
+
+        <div class="poetry-card glass-panel">
+          <div class="poem-glow-heart">✨</div>
+          <p class="poem-verse">
+            لو كان بإيدي أسرق من السما نجومها<br>
+            وأرصّها في شِعرك وأفرشلك دروبها،<br>
+            كنت عملت عشان بس ضحكة لـ منوش<br>
+            تنوّر دنيا بحالها وتطرد همومها!
+          </p>
+          <div class="poem-author">حبيبك ومجنونك محمد</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- VIRTUAL ROSE GARDEN & WISH UPON A STAR -->
+    <section class="section" id="make-a-wish">
+      <div class="wish-container glass-panel">
+        <div class="wish-header">
+          <i class="fa-solid fa-meteor meteor-icon"></i>
+          <h3>اكتبي أمنية يا منوووش وهتطير في سمانا ثلاثية الأبعاد ✨</h3>
+          <p>أي حلم أو دعوة نفسك فيها اكتبيها وهنفضل نحقق كل أحلامنا سوا إيد في إيد</p>
+        </div>
+
+        <div class="wish-input-wrapper">
+          <input type="text" id="wish-input" placeholder="اكتبي أمنيتك هنا يا حبيبتي... (مثلاً: نفضل سوا طول العمر)" maxlength="120">
+          <button id="send-wish-btn" class="btn btn-primary">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>أطلقي النجمة</span>
+          </button>
+        </div>
+
+        <div id="wishes-cloud" class="wishes-cloud">
+          <!-- Injected wishes -->
+          <div class="wish-pill"><i class="fa-solid fa-star"></i> نفضل سوا لآخر العمر وما يفرقنا إلا الموت ❤️</div>
+          <div class="wish-pill"><i class="fa-solid fa-star"></i> يا رب اشوفك أسعد وأجمل عروسة في الكون 👰</div>
+          <div class="wish-pill"><i class="fa-solid fa-star"></i> منة تكون دايماً مرتاحة ومبسوطة وضاحكة 🌸</div>
+          <div class="wish-pill"><i class="fa-solid fa-star"></i> ربنا يحميكي ليا وميحرمنيش من صوتك وضحكتك أبداً 💍</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-heart">
+        <i class="fa-solid fa-heart fa-beat" style="color: #ff1e56;"></i>
+      </div>
+      <p class="footer-text">
+        صُنع بكل مشاعر الحب والهيام والعشق الخالص مخصوص لـ <strong>منوووشتي (منة)</strong><br>
+        من حبيبك اللي بيعشقك وبيموت فيكي كل يوم أكتر من اللي قبله ❤️<br>
+        <span class="eternity-badge">03/03/2009 ♾️ 21/05/2011</span>
+      </p>
+    </footer>
+
+  </main>
+
+
+  <!-- ==========================================================================
+       MODALS
+       ========================================================================== -->
+
+  <!-- MODAL: LOVE LETTERS FULL READER -->
+  <div class="modal-overlay" id="letter-modal">
+    <div class="letter-modal-box glass-panel-popup animate-popup">
+      <button class="modal-close-btn" id="modal-close-btn" title="إغلاق">&times;</button>
+      
+      <div class="letter-modal-seal">
+        <i class="fa-solid fa-heart"></i>
+      </div>
+
+      <div class="letter-modal-content">
+        <h2 id="modal-letter-title" class="modal-letter-title">عنوان الرسالة</h2>
+        <div class="modal-letter-divider"></div>
+        <div id="modal-letter-body" class="modal-letter-body">
+          نص الرسالة...
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="modal-kiss-btn">
+          <i class="fa-solid fa-heart-pulse"></i>
+          <span>بحبك يا منة مووووت ❤️</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: SURPRISE ROYAL GIFT BOX -->
+  <div class="modal-overlay" id="surprise-modal">
+    <div class="surprise-modal-box glass-panel-popup animate-popup">
+      <button class="modal-close-btn" id="surprise-close-btn" title="إغلاق">&times;</button>
+      
+      <div class="gift-box-visual" id="gift-box-visual">
+        <div class="gift-icon-container">
+          <i class="fa-solid fa-gem gift-gem-icon"></i>
+        </div>
+      </div>
+
+      <h2 class="surprise-title">مفاجأة قلبي ليكي يا منوووش 💍✨</h2>
+      <p class="surprise-text">
+        لو كان بيدي أهديكي هدية تليق بيكي، لكنت هديتك عمري وروحي وسعادتي كلها.<br>
+        مكانتك في قلبي مش زي أي حد، أنتي الوحيدة اللي شيلت اسمها بين ضلوعي وكتبت عليها: <strong>"ملكية خاصة لحبيبتي منة للأبد"</strong>.
+      </p>
+
+      <div class="ring-vow-badge">
+        <i class="fa-solid fa-infinity"></i>
+        <span>حب أبدي لا ينتهي بالزمان أو المكان</span>
+      </div>
+
+      <div class="modal-footer" style="margin-top: 1.5rem;">
+        <button class="btn btn-glow-magic" id="surprise-accept-btn">
+          <i class="fa-solid fa-hand-holding-heart"></i>
+          <span>قبلت حبك يا حبيبي للأبد ❤️</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: EMERGENCY LOVE (WHEN SHE MISSES HIM) -->
+  <div class="modal-overlay" id="emergency-modal">
+    <div class="emergency-modal-box glass-panel-popup animate-popup">
+      <button class="modal-close-btn" id="emergency-close-btn" title="إغلاق">&times;</button>
+      
+      <div class="emergency-icon-top">
+        <i class="fa-solid fa-shield-heart fa-beat"></i>
+      </div>
+
+      <h2 class="emergency-title">لو وحشتيني أو زعلانة.. اسمعي مني الكلمتين دول 💖</h2>
+
+      <div class="emergency-messages" id="emergency-message-body">
+        "يا منوشتي الحلوة.. متخليش أي حاجة في الدنيا تضايقك أو تشيلك هم، افتكري دايماً إن ليكي حبيب بيموت فيكي ومستعد يقف قدام الدنيا كلها عشان بس يشوف ضحكتك منورة وشك. خدي نفس عميق، وابتسمي دلوقتي.. عشان ضحكتك هي اللي بتخلي دنيتي حلوة."
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" id="emergency-another-btn">
+          <i class="fa-solid fa-rotate-right"></i>
+          <span>كلمة حب تانية تطمني 🌸</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: OFFICIAL HEART OWNERSHIP CERTIFICATE (ROYAL GILDED PARCHMENT) -->
+  <div class="modal-overlay" id="certificate-modal">
+    <div class="certificate-box glass-panel-popup animate-popup">
+      <button class="modal-close-btn" id="certificate-close-btn" title="إغلاق">&times;</button>
+      
+      <div class="certificate-frame">
+        <div class="cert-crown"><i class="fa-solid fa-crown"></i></div>
+        <span class="cert-badge">وثيقة ملكية رسمية أبدية</span>
+        <h2 class="cert-title">عقد تمليك القلب والروح</h2>
+        <div class="cert-divider"></div>
+
+        <p class="cert-text">
+          تشهد محكمة الغرام الكونية وسماء النجوم الخالدة، بأن المدعو: <strong class="cert-hl">محمد (تاريخ ميلاده: 03/03/2009)</strong>، قد تنازل بكامل إرادته وعقله وقلبه عن جميع نبضاته ومشاعره وحياته، لصالح أميرته وملكة فؤاده: <strong class="cert-hl">مِـنّـة "منوووش" (تاريخ ميلادها: 21/05/2011)</strong>.
+        </p>
+
+        <p class="cert-vow">
+          تعتبر هذه الوثيقة أبدية وسارية المفعول في كل زمان ومكان، ولا يحق لأي قوة في الكون إلغاؤها أو التراجع عنها!
+        </p>
+
+        <div class="cert-couple-photo">
+          <img src="couple.jpg" alt="محمد ومنوش" class="cert-img">
+          <span class="cert-photo-caption">أجمل اتنين في الكون 👑</span>
+        </div>
+
+        <div class="cert-signatures">
+          <div class="sig-block">
+            <span>الطرف الأول (العاشق الولهان)</span>
+            <strong>محمد ❤️</strong>
+          </div>
+          <div class="cert-wax-stamp">
+            <i class="fa-solid fa-stamp"></i>
+            <span>مختوم بالحب</span>
+          </div>
+          <div class="sig-block">
+            <span>الطرف الثاني (ملكة القلب)</span>
+            <strong>منوووشتي 👑</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="margin-top: 1.5rem;">
+        <button class="btn btn-primary" id="cert-celebrate-btn">
+          <i class="fa-solid fa-heart-circle-check"></i>
+          <span>أشهد وأوافق على عقد حبنا الأبدي 💍</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MODAL: HAPPINESS JAR (DAILY LOVE PILLS) -->
+  <div class="modal-overlay" id="jar-modal">
+    <div class="jar-modal-box glass-panel-popup animate-popup">
+      <button class="modal-close-btn" id="jar-close-btn" title="إغلاق">&times;</button>
+      
+      <div class="jar-graphic">
+        <i class="fa-solid fa-jar jar-icon"></i>
+      </div>
+
+      <h2 class="jar-title">برطمان رسايل السعادة لـ منوش 🫙✨</h2>
+      <p class="jar-sub">اسحبي رسالة من البرطمان كل يوم عشان تعرفي قد إيه بحبك!</p>
+
+      <div class="jar-scroll-note" id="jar-scroll-note">
+        <i class="fa-solid fa-scroll scroll-icon"></i>
+        <p id="jar-message-text">"اضغطي على الزر بالأسفل لسحب رسالة حب خاصة بيكي!"</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-glow-magic" id="draw-jar-btn">
+          <i class="fa-solid fa-hand-sparkles"></i>
+          <span>اسحبي رسالة حب جديدة 💌</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
